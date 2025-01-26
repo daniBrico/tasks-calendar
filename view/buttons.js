@@ -2,13 +2,13 @@ const basePath = app.vault.adapter.basePath
 
 // Import paths
 delete global.require.cache[
-  global.require.resolve(`${basePath}\\Calendario\\calendar-env.js`)
+  global.require.resolve(`${basePath}\\Calendario\\env.js`)
 ]
 
 const {
   templatesPath,
   monthViewPath,
-} = require(`${basePath}\\Calendario\\calendar-env.js`)
+} = require(`${basePath}\\Calendario\\env.js`)
 
 // Clear imports cache
 delete global.require.cache[global.require.resolve(templatesPath)]
