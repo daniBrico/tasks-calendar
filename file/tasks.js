@@ -1,10 +1,6 @@
 const basePath = app.vault.adapter.basePath
 
-// Import paths
-delete global.require.cache[
-  global.require.resolve(`${basePath}\\Calendario\\env.js`)
-]
-
+// Imports
 const {
   templatesPath,
   notePath,
@@ -12,16 +8,6 @@ const {
   svgIconsPath,
 } = require(`${basePath}\\Calendario\\env.js`)
 
-// Clear cache imports
-delete global.require.cache[global.require.resolve(templatesPath)]
-
-delete global.require.cache[global.require.resolve(notePath)]
-
-delete global.require.cache[global.require.resolve(utilsPath)]
-
-delete global.require.cache[global.require.resolve(svgIconsPath)]
-
-// Imports
 const { getTaskTemplate } = require(templatesPath)
 
 const { getNoteMetadata } = require(notePath)

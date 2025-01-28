@@ -1,10 +1,6 @@
 const basePath = app.vault.adapter.basePath
 
-// Import paths
-delete global.require.cache[
-  global.require.resolve(`${basePath}\\Calendario\\env.js`)
-]
-
+// Imports
 const {
   utilsPath,
   templatesPath,
@@ -12,16 +8,6 @@ const {
   envPath,
 } = require(`${basePath}\\Calendario\\env.js`)
 
-// Clear imports cache
-delete global.require.cache[global.require.resolve(utilsPath)]
-
-delete global.require.cache[global.require.resolve(templatesPath)]
-
-delete global.require.cache[global.require.resolve(envPath)]
-
-delete global.require.cache[global.require.resolve(tasksPath)]
-
-// Imports
 const { createHTMLElement } = require(utilsPath)
 
 const { getDayCell, getWeekRow, getGridMonth } = require(templatesPath)
@@ -41,61 +27,49 @@ const displayWeekDaysHeader = (params) => {
   const currentDate = moment()
   const currentDayIndex = parseInt(currentDate.format('d'))
 
-  const gridContent = createHTMLElement({
+  const weekDaysHeaderWrapp = createHTMLElement({
     elementType: 'div',
     classes: 'gridHeads',
   })
 
-  gridContent.innerHTML = `
+  weekDaysHeaderWrapp.innerHTML = `
     <div class="gridHead"></div>
   `
-  // Recorre desde el primer día de la semana seleccionado por el usuario, por ejemplo lunes (1) hasta el último (los 7 días)
-
   let targetDayIndex
   let weekDayName
-  let gridHead
+  let weekDayCell
 
   let firstDayOfMonthIx = getFirstDayOfMonthIx(targetDate)
 
   let h = 0 - firstDayOfMonthIx + WEEK_START_DAY
 
   for (h; h < 7 - firstDayOfMonthIx + WEEK_START_DAY; h++) {
-    // console.log('h: ', h)
     targetDayIndex = parseInt(targetDate.clone().add(h, 'days').format('d'))
     weekDayName = targetDate.clone().add(h, 'days').format('ddd')
 
-    gridHead = createHTMLElement({
+    weekDayCell = createHTMLElement({
       elementType: 'div',
       classes: 'gridHead',
       attributes: {
-        name: 'weekday',
+        name: 'data-weekday',
         value: targetDayIndex,
       },
       content: weekDayName,
     })
 
     // El valor today pareciera que no lo utiliza luego, no se para que lo agrega. Tener en cuenta.
-
     if (
       targetDate.isSame(currentDate, 'month') &&
       currentDayIndex === targetDayIndex
     )
-      gridHead.classList.add('today')
+      weekDayCell.classList.add('today')
 
-    gridContent.appendChild(gridHead)
+    weekDaysHeaderWrapp.appendChild(weekDayCell)
   }
 
-  // Al salir del for, gridHeads, contiene la fila siguiente después de los botones, la que tiene el nombre de cada uno de los días
-  // const el = document.createElement('div')
-  // el.innerHTML = gridHeads
-  // console.log('gridHeads fuera del for: ', el)
-
   const divElement = createHTMLElement({ elementType: 'div', classes: 'grid' })
-
-  divElement.appendChild(gridContent)
-
+  divElement.appendChild(weekDaysHeaderWrapp)
   rootNodeElement.querySelector('span').appendChild(divElement)
-  // No se todavía para qué usa este data attribute
   rootNodeElement.setAttribute('data-view', 'month')
 }
 
@@ -201,7 +175,6 @@ const displayDayGrid = (params) => {
     monthName: targetDate.format('MMM'),
     weeksWrappers: weeksWrappers.join(''),
   })
-
   rootNodeElement
     .querySelector('.gridHeads')
     .insertAdjacentHTML('afterend', gridContent)
@@ -221,21 +194,16 @@ function removeExistingView(rootNodeElement) {
 
 const setMonthView = (targetDate, rootNodeElement, tasks) => {
   // targetDate: Objeto fecha posicionado en el primer día del mes
-
   removeExistingView(rootNodeElement)
 
-  let title = `
+  rootNodeElement.querySelector('button.current').innerHTML = `
     <span>${targetDate.format('MMMM')}</span>
     <span>${targetDate.format('YYYY')}</span>
-  `
-
-  rootNodeElement.querySelector('button.current').innerHTML = title
-
+    `
   displayWeekDaysHeader({
     targetDate,
     rootNodeElement,
   })
-
   displayDayGrid({
     rootNodeElement,
     targetDate,

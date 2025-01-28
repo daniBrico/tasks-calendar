@@ -12,7 +12,7 @@
 }
 .tasksCalendar[view='list'] button.listView,
 .tasksCalendar[view='week'] button.weekView,
-.tasksCalendar[view='month'] button.monthView,
+.tasksCalendar[data-view='month'] button.monthView,
 .tasksCalendar.filter button.filter {
   background: var(--background-modifier-active-hover);
 }
@@ -27,7 +27,7 @@ body:not(.is-mobile) .tasksCalendar button.statistic:hover {
   background: var(--background-modifier-hover);
 }
 .tasksCalendar[view='list'] button.listView svg,
-.tasksCalendar[view='month'] button.monthView svg,
+.tasksCalendar[data-view='month'] button.monthView svg,
 .tasksCalendar[view='week'] button.weekView svg,
 .tasksCalendar.filter button.filter svg {
   stroke: var(--icon-color-active) !important;
@@ -396,7 +396,7 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
   color: var(--icon-color-active);
   opacity: 1;
 }
-.tasksCalendar[view='month'] .cell.today {
+.tasksCalendar[data-view='month'] .cell.today {
   background: var(--background-modifier-active-hover) !important;
   border: 1px solid hsla(var(--interactive-accent-hsl), 0.25) !important;
   border-radius: 5px;
@@ -411,13 +411,13 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
 }
 
 /* Month View */
-.tasksCalendar[view='month'] .grid {
+.tasksCalendar[data-view='month'] .grid {
   display: grid;
   gap: 4px;
   grid-template-rows: 20px 1fr !important;
   grid-template-columns: 1fr !important;
 }
-.tasksCalendar[view='month'] .gridHeads {
+.tasksCalendar[data-view='month'] .gridHeads {
   display: grid;
   grid-template-columns: 20px 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
   width: 100%;
@@ -425,7 +425,7 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
   border: 1px solid var(--nav-item-background-active);
   border-radius: 5px;
 }
-.tasksCalendar[view='month'] .gridHead {
+.tasksCalendar[data-view='month'] .gridHead {
   display: inline;
   box-sizing: border-box;
   overflow: hidden;
@@ -439,7 +439,7 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
   line-height: 20px;
   font-size: 10px;
 }
-.tasksCalendar[view='month'] .wrappers {
+.tasksCalendar[data-view='month'] .wrappers {
   display: grid;
   grid-template-rows: repeat(6, calc(100% / 6));
   grid-template-columns: 1fr !important;
@@ -447,11 +447,11 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
   height: calc(100% - 20px);
   gap: 4px 4px;
 }
-.tasksCalendar[view='month'] .wrappers,
+.tasksCalendar[data-view='month'] .wrappers,
 .tasksCalendar[view='week'] .grid {
   position: relative;
 }
-.tasksCalendar[view='month'] .wrappers:before,
+.tasksCalendar[data-view='month'] .wrappers:before,
 .tasksCalendar[view='week'] .grid:before,
 .tasksCalendar[view='list'] .list:before {
   z-index: 0;
@@ -463,14 +463,14 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
   font-weight: bold;
   color: var(--background-modifier-active-hover);
 }
-.tasksCalendar[view='month'] .wrappers:before,
+.tasksCalendar[data-view='month'] .wrappers:before,
 .tasksCalendar[view='list'] .list:before {
   content: attr(data-month);
 }
 .tasksCalendar[view='week'] .grid:before {
   content: attr(data-week);
 }
-.tasksCalendar[view='month'] .wrapper {
+.tasksCalendar[data-view='month'] .wrapper {
   z-index: 1;
   display: grid;
   grid-template-rows: 1fr !important;
@@ -481,7 +481,7 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
   border-radius: 5px;
   overflow: hidden;
 }
-.tasksCalendar[view='month'] .wrapperButton {
+.tasksCalendar[data-view='month'] .wrapperButton {
   display: flex;
   writing-mode: vertical-lr;
   transform: rotate(180deg);
@@ -499,13 +499,13 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
   /* background: var(--background-primary); */
   background: var(--background-secondary);
 }
-.tasksCalendar[view='month'] .wrapperButton:hover {
+.tasksCalendar[data-view='month'] .wrapperButton:hover {
   background: var(--background-modifier-hover);
 }
-.tasksCalendar[view='month'] .cell {
+.tasksCalendar[data-view='month'] .cell {
   margin: 0;
 }
-.tasksCalendar[view='month'] .diferentMonth {
+.tasksCalendar[data-view='month'] .diferentMonth {
   background: var(--background-secondary);
 }
 

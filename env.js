@@ -1,5 +1,13 @@
 const WEEK_START_DAY = 1
 
+const VIEW_TYPES = {
+  MONTH: 'month',
+  WEEK: 'week',
+  LIST: 'list',
+}
+
+let defaultView = 'month'
+
 // Paths
 const basePath = app.vault.adapter.basePath
 const rootPathProject = `${basePath}\\Calendario`
@@ -16,8 +24,9 @@ const templatesPath = `${rootPathProject}\\resources\\templates.js`
 const utilsPath = `${rootPathProject}\\utils\\utils.js`
 
 // View directory
-const buttonsPath = `${rootPathProject}\\view\\buttons.js`
 const monthViewPath = `${rootPathProject}\\view\\month-view.js`
+const viewHandlerPath = `${rootPathProject}\\view\\view-handler.js`
+const eventsHandlerPath = `${rootPathProject}\\view\\events-handler.js`
 
 // Env
 const envPath = `${rootPathProject}\\env.js`
@@ -29,7 +38,9 @@ module.exports = {
   svgIconsPath,
   templatesPath,
   utilsPath,
-  buttonsPath,
   monthViewPath,
+  viewHandlerPath,
+  eventsHandlerPath,
   envPath,
+  VIEW_TYPES,
 }

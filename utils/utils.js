@@ -19,8 +19,6 @@ const createHTMLElement = (data) => {
   return el
 }
 
-const capitalizeFirstLetter = (str) => str[0].toUpperCase() + str.slice(1)
-
 // Revisar esta función
 const transColor = function (color, percent) {
   let num = parseInt(color.replace('#', ''), 16)
@@ -42,9 +40,24 @@ const transColor = function (color, percent) {
   )
 }
 
+// Reload imports cache for hot reload
+const reloadImportsCache = function (folderPath) {
+  const cacheKeys = Object.keys(global.require.cache)
+
+  const modulesToDelete = cacheKeys.filter((key) => key.includes(folderPath))
+
+  modulesToDelete.forEach((moduleKey) => {
+    delete global.require.cache[moduleKey]
+  })
+
+  modulesToDelete.forEach((moduleKey) => {
+    require(moduleKey)
+  })
+}
+
 // Export
 module.exports = {
   createHTMLElement,
-  capitalizeFirstLetter,
   transColor,
+  reloadImportsCache,
 }
