@@ -10,12 +10,12 @@ const { initialView } = require(viewHandlerPath)
 const { reloadImportsCache } = require(utilsPath)
 
 // Functions
-const main = async function () {
+const main = function () {
   console.log('Comienza --------------------')
+  reloadImportsCache(`${basePath}\\Calendario`)
   const { tasks, view, options } = input
 
   initialView({ tasks, view, options, dv })
-  reloadImportsCache(`${basePath}\\Calendario`)
 }
 
 main()

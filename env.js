@@ -1,3 +1,6 @@
+// imports
+const path = require('path')
+
 const WEEK_START_DAY = 1
 
 const VIEW_TYPES = {
@@ -6,29 +9,32 @@ const VIEW_TYPES = {
   LIST: 'list',
 }
 
-let defaultView = 'month'
-
-// Paths
+// paths
 const basePath = app.vault.adapter.basePath
 const rootPathProject = `${basePath}\\Calendario`
 
-// File directory
+// file directory
 const notePath = `${rootPathProject}\\file\\note.js`
 const tasksPath = `${rootPathProject}\\file\\tasks.js`
 
-// Resources directory
+// resources directory
 const svgIconsPath = `${rootPathProject}\\resources\\svg-icons.js`
 const templatesPath = `${rootPathProject}\\resources\\templates.js`
 
-// Utils directory
+// utils directory
 const utilsPath = `${rootPathProject}\\utils\\utils.js`
 
-// View directory
+// view directory
 const monthViewPath = `${rootPathProject}\\view\\month-view.js`
 const viewHandlerPath = `${rootPathProject}\\view\\view-handler.js`
 const eventsHandlerPath = `${rootPathProject}\\view\\events-handler.js`
 
-// Env
+// config directory
+const settingsManagerPath = path.join(
+  rootPathProject,
+  'config/settings-manager.js'
+)
+// env directory
 const envPath = `${rootPathProject}\\env.js`
 
 module.exports = {
@@ -43,4 +49,5 @@ module.exports = {
   eventsHandlerPath,
   envPath,
   VIEW_TYPES,
+  settingsManagerPath,
 }
