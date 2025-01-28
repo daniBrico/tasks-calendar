@@ -6,7 +6,7 @@ const {
   notePath,
   utilsPath,
   svgIconsPath,
-} = require(`${basePath}\\Calendario\\env.js`)
+} = require(`${basePath}\\Calendario\\config\\env.js`)
 
 const { getTaskTemplate } = require(templatesPath)
 

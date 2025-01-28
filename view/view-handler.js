@@ -5,7 +5,7 @@ const {
   monthViewPath,
   templatesPath,
   eventsHandlerPath,
-} = require(`${basePath}\\Calendario\\env.js`)
+} = require(`${basePath}\\Calendario\\config\\env.js`)
 
 const { setMonthView } = require(monthViewPath)
 const { getButtonsTemplate } = require(templatesPath)

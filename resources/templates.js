@@ -1,7 +1,7 @@
 const basePath = app.vault.adapter.basePath
 
 // Import
-const { svgIconsPath } = require(`${basePath}\\Calendario\\env.js`)
+const { svgIconsPath } = require(`${basePath}\\Calendario\\config\\env.js`)
 
 const {
   arrowLeftIcon,

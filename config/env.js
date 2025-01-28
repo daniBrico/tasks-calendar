@@ -3,12 +3,6 @@ const path = require('path')
 
 const WEEK_START_DAY = 1
 
-const VIEW_TYPES = {
-  MONTH: 'month',
-  WEEK: 'week',
-  LIST: 'list',
-}
-
 // paths
 const basePath = app.vault.adapter.basePath
 const rootPathProject = `${basePath}\\Calendario`
@@ -35,7 +29,7 @@ const settingsManagerPath = path.join(
   'config/settings-manager.js'
 )
 // env directory
-const envPath = `${rootPathProject}\\env.js`
+const envPath = `${rootPathProject}\\config\\env.js`
 
 module.exports = {
   WEEK_START_DAY,
@@ -48,6 +42,5 @@ module.exports = {
   viewHandlerPath,
   eventsHandlerPath,
   envPath,
-  VIEW_TYPES,
   settingsManagerPath,
 }

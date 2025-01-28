@@ -4,7 +4,7 @@ const basePath = app.vault.adapter.basePath
 const {
   viewHandlerPath,
   utilsPath,
-} = require(`${basePath}\\Calendario\\env.js`)
+} = require(`${basePath}\\Calendario\\config\\env.js`)
 
 const { initialView } = require(viewHandlerPath)
 const { reloadImportsCache } = require(utilsPath)

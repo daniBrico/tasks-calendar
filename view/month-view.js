@@ -6,7 +6,7 @@ const {
   templatesPath,
   tasksPath,
   envPath,
-} = require(`${basePath}\\Calendario\\env.js`)
+} = require(`${basePath}\\Calendario\\config\\env.js`)
 
 const { createHTMLElement } = require(utilsPath)
 
