@@ -67,6 +67,7 @@ const createTasksTemplate = function (tasks) {
     // El propósito de esto es asegurarse de que cualquier comilla simple dentro del texto se convierta en su equivalente HTML (&apos;)
     taskText = task.text.replace("'", '&apos;')
     taskPath = task.link.path.replace("'", '&apos;')
+
     taskLine = task.header.subpath
       ? `${taskPath}#${task.header.subpath}`
       : taskPath

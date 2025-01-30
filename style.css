@@ -417,7 +417,7 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
   grid-template-rows: 20px 1fr !important;
   grid-template-columns: 1fr !important;
 }
-.tasksCalendar[data-view='month'] .gridHeads {
+.tasksCalendar[data-view='month'] .weekDaysHeaderContainer {
   display: grid;
   grid-template-columns: 20px 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
   width: 100%;
@@ -1014,7 +1014,7 @@ body:not(.is-mobile) .tasksCalendar .task:hover {
 .tasksCalendar.noWeekNr .wrapper {
   grid-template-columns: 0px 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
 }
-.tasksCalendar.noWeekNr .gridHeads {
+.tasksCalendar.noWeekNr .weekDaysHeaderContainer {
   grid-template-columns: 0px 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
 }
 .tasksCalendar.noWeekNr .list .weekNr {

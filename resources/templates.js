@@ -85,6 +85,16 @@ const getTaskTemplate = ({
         </a>
       `
 
+const getWeekDayCell = (targetDayIndex, weekDayName, gridHeadClass = '') => {
+  const className = `gridHead ${gridHeadClass}`.trim()
+
+  return `
+          <div class="${className}" data-weekday="${targetDayIndex}">
+            ${weekDayName}
+          </div>
+        `
+}
+
 // Export
 module.exports = {
   getButtonsTemplate,
@@ -92,4 +102,5 @@ module.exports = {
   getWeekRow,
   getGridMonth,
   getTaskTemplate,
+  getWeekDayCell,
 }

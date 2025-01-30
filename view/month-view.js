@@ -10,7 +10,12 @@ const {
 
 const { createHTMLElement } = require(utilsPath)
 
-const { getDayCell, getWeekRow, getGridMonth } = require(templatesPath)
+const {
+  getDayCell,
+  getWeekRow,
+  getGridMonth,
+  getWeekDayCell,
+} = require(templatesPath)
 
 const { WEEK_START_DAY } = require(envPath)
 
@@ -27,17 +32,16 @@ const displayWeekDaysHeader = (params) => {
   const currentDate = moment()
   const currentDayIndex = parseInt(currentDate.format('d'))
 
-  const weekDaysHeaderWrapp = createHTMLElement({
+  const weekDaysHeaderContainer = createHTMLElement({
     elementType: 'div',
-    classes: 'gridHeads',
+    classes: 'weekDaysHeaderContainer',
   })
 
-  weekDaysHeaderWrapp.innerHTML = `
-    <div class="gridHead"></div>
-  `
+  weekDaysHeaderContainer.innerHTML = `<div></div>`
+
   let targetDayIndex
   let weekDayName
-  let weekDayCell
+  let gridHeadClass
 
   let firstDayOfMonthIx = getFirstDayOfMonthIx(targetDate)
 
@@ -47,28 +51,23 @@ const displayWeekDaysHeader = (params) => {
     targetDayIndex = parseInt(targetDate.clone().add(h, 'days').format('d'))
     weekDayName = targetDate.clone().add(h, 'days').format('ddd')
 
-    weekDayCell = createHTMLElement({
-      elementType: 'div',
-      classes: 'gridHead',
-      attributes: {
-        name: 'data-weekday',
-        value: targetDayIndex,
-      },
-      content: weekDayName,
-    })
-
     // El valor today pareciera que no lo utiliza luego, no se para que lo agrega. Tener en cuenta.
     if (
       targetDate.isSame(currentDate, 'month') &&
       currentDayIndex === targetDayIndex
     )
-      weekDayCell.classList.add('today')
+      gridHeadClass = 'today'
 
-    weekDaysHeaderWrapp.appendChild(weekDayCell)
+    weekDaysHeaderContainer.innerHTML += getWeekDayCell(
+      targetDayIndex,
+      weekDayName,
+      gridHeadClass
+    )
   }
 
   const divElement = createHTMLElement({ elementType: 'div', classes: 'grid' })
-  divElement.appendChild(weekDaysHeaderWrapp)
+  divElement.appendChild(weekDaysHeaderContainer)
+
   rootNodeElement.querySelector('span').appendChild(divElement)
   rootNodeElement.setAttribute('data-view', 'month')
 }
@@ -175,8 +174,9 @@ const displayDayGrid = (params) => {
     monthName: targetDate.format('MMM'),
     weeksWrappers: weeksWrappers.join(''),
   })
+
   rootNodeElement
-    .querySelector('.gridHeads')
+    .querySelector('.weekDaysHeaderContainer')
     .insertAdjacentHTML('afterend', gridContent)
 }
 
@@ -199,11 +199,13 @@ const setMonthView = (targetDate, rootNodeElement, tasks) => {
   rootNodeElement.querySelector('button.current').innerHTML = `
     <span>${targetDate.format('MMMM')}</span>
     <span>${targetDate.format('YYYY')}</span>
-    `
+  `
+
   displayWeekDaysHeader({
     targetDate,
     rootNodeElement,
   })
+
   displayDayGrid({
     rootNodeElement,
     targetDate,
