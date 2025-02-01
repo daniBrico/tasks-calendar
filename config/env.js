@@ -20,15 +20,16 @@ const utilsPath = `${rootPathProject}\\utils\\utils.js`
 
 // view directory
 const monthViewPath = `${rootPathProject}\\view\\month-view.js`
-const viewHandlerPath = `${rootPathProject}\\view\\view-handler.js`
+const weekViewPath = `${rootPathProject}\\view\\week-view.js`
 const eventsHandlerPath = `${rootPathProject}\\view\\events-handler.js`
+const viewHandlerPath = `${rootPathProject}\\view\\view-handler.js`
+const eventsPath = `${rootPathProject}\\view\\events.js`
 
 // config directory
 const settingsManagerPath = path.join(
   rootPathProject,
   'config/settings-manager.js'
 )
-// env directory
 const envPath = `${rootPathProject}\\config\\env.js`
 
 module.exports = {
@@ -39,7 +40,9 @@ module.exports = {
   templatesPath,
   utilsPath,
   monthViewPath,
+  weekViewPath,
   viewHandlerPath,
+  eventsPath,
   eventsHandlerPath,
   envPath,
   settingsManagerPath,

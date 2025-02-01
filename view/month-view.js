@@ -27,14 +27,14 @@ const {
 
 // Functions
 const displayWeekDaysHeader = (params) => {
-  const { targetDate, rootNodeElement } = params
+  const { firstDateOfMonth, rootNodeElement } = params
 
   const currentDate = moment()
   const currentDayIndex = parseInt(currentDate.format('d'))
 
   const weekDaysHeaderContainer = createHTMLElement({
     elementType: 'div',
-    classes: 'weekDaysHeaderContainer',
+    classes: ['weekDaysHeaderContainer'],
   })
 
   weekDaysHeaderContainer.innerHTML = `<div></div>`
@@ -43,17 +43,19 @@ const displayWeekDaysHeader = (params) => {
   let weekDayName
   let gridHeadClass
 
-  let firstDayOfMonthIx = getFirstDayOfMonthIx(targetDate)
+  let firstDayOfMonthIx = getFirstDayOfMonthIx(firstDateOfMonth)
 
   let h = 0 - firstDayOfMonthIx + WEEK_START_DAY
 
   for (h; h < 7 - firstDayOfMonthIx + WEEK_START_DAY; h++) {
-    targetDayIndex = parseInt(targetDate.clone().add(h, 'days').format('d'))
-    weekDayName = targetDate.clone().add(h, 'days').format('ddd')
+    targetDayIndex = parseInt(
+      firstDateOfMonth.clone().add(h, 'days').format('d')
+    )
+    weekDayName = firstDateOfMonth.clone().add(h, 'days').format('ddd')
 
     // El valor today pareciera que no lo utiliza luego, no se para que lo agrega. Tener en cuenta.
     if (
-      targetDate.isSame(currentDate, 'month') &&
+      firstDateOfMonth.isSame(currentDate, 'month') &&
       currentDayIndex === targetDayIndex
     )
       gridHeadClass = 'today'
@@ -65,26 +67,28 @@ const displayWeekDaysHeader = (params) => {
     )
   }
 
-  const divElement = createHTMLElement({ elementType: 'div', classes: 'grid' })
+  const divElement = createHTMLElement({
+    elementType: 'div',
+    classes: ['grid'],
+  })
   divElement.appendChild(weekDaysHeaderContainer)
 
   rootNodeElement.querySelector('span').appendChild(divElement)
-  rootNodeElement.setAttribute('data-view', 'month')
 }
 
 // Genera y retorna el contenido HTML (en formato texto) correspondiente a un día
 const generateDayCell = (dateIterator, isSameMonth, isToday, cellContent) => {
   const isFirstDayOfMonth = parseInt(dateIterator.format('D')) === 1
 
-  const className = [
+  const cls = [
     isFirstDayOfMonth ? 'newMonth' : '',
     !isSameMonth ? 'diferentMonth' : '',
     isToday ? 'today' : '',
   ]
 
   const cellData = {
-    className: className.join(' '),
-    weekday: dateIterator.format('d'),
+    cls: cls.join(' '),
+    weekDay: dateIterator.format('d'),
     cellName: isFirstDayOfMonth
       ? dateIterator.format('D. MMM')
       : dateIterator.format('D'),
@@ -104,17 +108,16 @@ const generateWeek = (startDayOffset, firstDateOfMonth, tasks) => {
   let isSameMonth
   let isToday
 
-  let tasksFromDay
+  let tasksForDay
   let cellContent
   let dayCell
 
   // Recorro los 7 días de la semana
   for (let dayOffset = 0; dayOffset < 7; dayOffset++) {
     dateIterator = weekStart.clone().add(dayOffset, 'day')
+    tasksForDay = getTasksForDay(dateIterator, tasks)
 
-    tasksFromDay = getTasksForDay(dateIterator, tasks)
-
-    if (tasksFromDay.length > 0) cellContent = createTasksTemplate(tasksFromDay)
+    if (tasksForDay.length > 0) cellContent = createTasksTemplate(tasksForDay)
 
     isSameMonth = dateIterator.isSame(firstDateOfMonth, 'month')
     isToday = dateIterator.isSame(todayDate, 'day')
@@ -140,15 +143,15 @@ const getFirstDayOfMonthIx = (targetDate) =>
   parseInt(targetDate.format('d')) === 0 ? 7 : parseInt(targetDate.format('d'))
 
 const displayDayGrid = (params) => {
-  const { rootNodeElement, targetDate, tasks } = params
+  const { rootNodeElement, firstDateOfMonth, tasks } = params
   const weeksWrappers = []
 
-  let firstDayOfMonthIx = getFirstDayOfMonthIx(targetDate)
+  let firstDayOfMonthIx = getFirstDayOfMonthIx(firstDateOfMonth)
   // La vista comenzará a mostrar los días a partir de startDayOffSet
   const startDayOffset = WEEK_START_DAY - firstDayOfMonthIx
 
   const tasksCurrentAndAdjacentMonths = getTasksCurrentAndAdjacentMonths(
-    targetDate,
+    firstDateOfMonth,
     tasks
   )
 
@@ -162,7 +165,7 @@ const displayDayGrid = (params) => {
     // Genero cada una de las semanas con sus respectivos días
     weekData = generateWeek(
       weekOffset,
-      targetDate,
+      firstDateOfMonth,
       tasksCurrentAndAdjacentMonths
     )
 
@@ -171,7 +174,7 @@ const displayDayGrid = (params) => {
 
   // Generar y añadir el grid al DOM
   const gridContent = getGridMonth({
-    monthName: targetDate.format('MMM'),
+    monthName: firstDateOfMonth.format('MMM'),
     weeksWrappers: weeksWrappers.join(''),
   })
 
@@ -180,21 +183,10 @@ const displayDayGrid = (params) => {
     .insertAdjacentHTML('afterend', gridContent)
 }
 
-// Si voy a hacer una vista
-function removeExistingView(rootNodeElement) {
-  if (rootNodeElement.querySelector(`#tasksCalendar .grid`))
-    rootNodeElement.querySelector(`#tasksCalendar .grid`).remove()
-
-  // if (rootNodeElement.querySelector(`#tasksCalendar .grid`)) {
-  //   rootNodeElement.querySelector(`#tasksCalendar .grid`).remove()
-  // } else if (rootNodeElement.querySelector(`#tasksCalendar .list`)) {
-  //   rootNodeElement.querySelector(`#tasksCalendar .list`).remove()
-  // }
-}
-
 const setMonthView = (targetDate, rootNodeElement, tasks) => {
   // targetDate: Objeto fecha posicionado en el primer día del mes
-  removeExistingView(rootNodeElement)
+
+  const firstDateOfMonth = targetDate.clone().startOf('month')
 
   rootNodeElement.querySelector('button.current').innerHTML = `
     <span>${targetDate.format('MMMM')}</span>
@@ -202,15 +194,17 @@ const setMonthView = (targetDate, rootNodeElement, tasks) => {
   `
 
   displayWeekDaysHeader({
-    targetDate,
+    firstDateOfMonth,
     rootNodeElement,
   })
 
   displayDayGrid({
     rootNodeElement,
-    targetDate,
+    firstDateOfMonth,
     tasks,
   })
+
+  rootNodeElement.setAttribute('data-view', 'month')
 }
 
 // Export

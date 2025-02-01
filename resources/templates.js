@@ -9,7 +9,6 @@ const {
   filterIcon,
   monthIcon,
   weekIcon,
-  listIcon,
   calendarCheckIcon,
 } = require(svgIconsPath)
 
@@ -18,9 +17,6 @@ const getButtonsTemplate = () => `
         <div class="buttons">
           <button class="filter">
             ${filterIcon}
-          </button>
-          <button class="listView" title="List">
-            ${listIcon}
           </button>
           <button class="monthView" title="Month">
             ${monthIcon}
@@ -40,14 +36,20 @@ const getButtonsTemplate = () => `
       `
 
 // Genera y retorna el contenido HTML (en forma de texto) para un día
-const getDayCell = ({ className, weekday, cellName, cellContent }) => `
-        <div class="cell ${className}" data-weekday="${weekday}">
-          <a class="internal-link cellName">
-            ${cellName}
-          </a>
-          ${cellContent ? `<div class="cellContent">${cellContent}</div>` : ''}
-        </div>
-      `
+const getDayCell = ({ cls, weekDay, cellName, cellContent }) => {
+  const className = `cell ${cls}`.trim()
+
+  return `
+          <div class="${className}" data-weekday="${weekDay}">
+            <a class="internal-link cellName">
+              ${cellName}
+            </a>
+            ${
+              cellContent ? `<div class="cellContent">${cellContent}</div>` : ''
+            }
+          </div>
+        `
+}
 
 const getWeekRow = ({ weekNumber, yearNumber, weekContent }) => `
         <div class="wrapper">
