@@ -7,6 +7,20 @@ const WEEK_START_DAY = 1
 const basePath = app.vault.adapter.basePath
 const rootPathProject = `${basePath}\\Calendario`
 
+// root directory
+const appPath = `${rootPathProject}\\app.js`
+
+// config directory
+const settingsManagerPath = path.join(
+  rootPathProject,
+  'config/settings-manager.js'
+)
+const envPath = `${rootPathProject}\\config\\env.js`
+
+// events directory
+const toolbarEventsHandlerPath = `${rootPathProject}\\events\\toolbar-events-handler.js`
+const eventsPath = `${rootPathProject}\\events\\events-controller.js`
+
 // file directory
 const notePath = `${rootPathProject}\\file\\note.js`
 const tasksPath = `${rootPathProject}\\file\\tasks.js`
@@ -21,19 +35,11 @@ const utilsPath = `${rootPathProject}\\utils\\utils.js`
 // view directory
 const monthViewPath = `${rootPathProject}\\view\\month-view.js`
 const weekViewPath = `${rootPathProject}\\view\\week-view.js`
-const eventsHandlerPath = `${rootPathProject}\\view\\events-handler.js`
 const viewHandlerPath = `${rootPathProject}\\view\\view-handler.js`
-const eventsPath = `${rootPathProject}\\view\\events.js`
-
-// config directory
-const settingsManagerPath = path.join(
-  rootPathProject,
-  'config/settings-manager.js'
-)
-const envPath = `${rootPathProject}\\config\\env.js`
 
 module.exports = {
   WEEK_START_DAY,
+  appPath,
   notePath,
   tasksPath,
   svgIconsPath,
@@ -41,9 +47,9 @@ module.exports = {
   utilsPath,
   monthViewPath,
   weekViewPath,
-  viewHandlerPath,
+  toolbarEventsHandlerPath,
   eventsPath,
-  eventsHandlerPath,
-  envPath,
+  viewHandlerPath,
   settingsManagerPath,
+  envPath,
 }
