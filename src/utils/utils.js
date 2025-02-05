@@ -4,14 +4,7 @@ const createHTMLElement = (data) => {
 
   const el = document.createElement(elementType)
 
-  if (classes) {
-    el.classList.add(...classes)
-    // if (Array.isArray(classes)) {
-    //   el.classList.add(...classes)
-    // } else {
-    //   el.classList.add(classes)
-    // }
-  }
+  if (classes) el.classList.add(...classes)
 
   if (attributes) el.setAttribute(attributes.name, attributes.value)
 

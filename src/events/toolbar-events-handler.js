@@ -1,7 +1,9 @@
+const path = require('path')
 const basePath = app.vault.adapter.basePath
+const envPath = path.join(basePath, 'Tasks Calendar/src/config/env.js')
 
 // Imports
-const { viewHandlerPath } = require(`${basePath}\\Calendario\\config\\env.js`)
+const { viewHandlerPath } = require(envPath)
 const { setView } = require(viewHandlerPath)
 
 // Variables para mantener el estado

@@ -1,12 +1,9 @@
+const path = require('path')
 const basePath = app.vault.adapter.basePath
+const envPath = path.join(basePath, 'Tasks Calendar/src/config/env.js')
 
 // Imports
-const {
-  utilsPath,
-  templatesPath,
-  tasksPath,
-  envPath,
-} = require(`${basePath}\\Calendario\\config\\env.js`)
+const { utilsPath, templatesPath, tasksPath } = require(envPath)
 
 const { createHTMLElement } = require(utilsPath)
 

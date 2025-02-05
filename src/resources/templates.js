@@ -1,7 +1,9 @@
+const path = require('path')
 const basePath = app.vault.adapter.basePath
+const envPath = path.join(basePath, 'Tasks Calendar/src/config/env.js')
 
 // Import
-const { svgIconsPath } = require(`${basePath}\\Calendario\\config\\env.js`)
+const { svgIconsPath } = require(envPath)
 
 const {
   arrowLeftIcon,

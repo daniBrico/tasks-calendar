@@ -1,10 +1,8 @@
+const path = require('path')
 const basePath = app.vault.adapter.basePath
+const envPath = path.join(basePath, 'Tasks Calendar/src/config/env.js')
 
-const {
-  templatesPath,
-  monthViewPath,
-  weekViewPath,
-} = require(`${basePath}\\Calendario\\config\\env.js`)
+const { templatesPath, monthViewPath, weekViewPath } = require(envPath)
 
 // Imports
 const { getButtonsTemplate } = require(templatesPath)

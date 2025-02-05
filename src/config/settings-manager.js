@@ -3,7 +3,7 @@ const path = require('path')
 
 const CONFIG_PATH = path.join(
   app.vault.adapter.basePath,
-  'Calendario/config/settings.json'
+  'Tasks Calendar/src/config/settings.json'
 )
 
 const getSettings = async function () {

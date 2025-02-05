@@ -9,5 +9,8 @@
 
 Task Calendar es un calendario para obsidian que, junto con los plugins DataviewJS y Tasks, se encarga de recuperar las tareas definidas en el baúl del usuario y mostrarlas en una vista de mes o semana.
 
-## ¿Cómo utilizar?
+## Aclaración
 
+Es importante mencionar que este proyecto se encuentra en desarrollo, y es por eso que muchas funciones no están implementadas o incompletas. Aún así es posible tener una vista previa de como se encuentra actualmente.
+
+## ¿Cómo probarlo?
