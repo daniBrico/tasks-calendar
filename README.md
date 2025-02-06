@@ -6,7 +6,7 @@
 > El objetivo de esta reestructuración es lograr un código más modular, facilitando su mantenimiento, mejora y legibilidad.
 ## Introducción
 
-**Tasks Calendar** es un calendario para obsidian que, en conjunto con los plugins *DataviewJS* y *Tasks*, permite recuperar las tareas definidas en el baúl del usuario y mostrarlas en una vista de mes o semana.
+**Tasks Calendar** es un calendario para obsidian que, en conjunto con los plugins *DataviewJS* y *Tasks*, permite recuperar las tareas definidas en tu baúl y mostrarlas en una vista de mes o semana.
 
 ## Aclaraciones
 
@@ -19,15 +19,22 @@ Dado que el proyecto está en desarrollo, las instrucciones de uso pueden cambia
 Para probar **Tasks Calendar**, realizar los siguientes pasos:
 
 1. Descargar o clonar el repositorio. 
-2. Crear una carpeta en el directorio raíz de su baúl de Obsidian llamada `Tasks Calendar`.
+2. Crear una carpeta en el directorio raíz de tu baúl de Obsidian llamada `Tasks Calendar`.
 3. Mover la carpeta `src` y el archivo `Tasks Calendar.md` dentro de la carpeta creada en el paso anterior.
 
-Dentro del bloque `dataviewjs` que se encuentra en el archivo `Tasks Calendar.md`, está la llamada a la aplicación para que esta comience a funcionar. Es necesario que el usuario especifique allí las tareas o, en su defecto, las notas donde la aplicación buscará las tareas que mostrará posteriormente en la interfaz.
+Dentro del bloque `dataviewjs` que se encuentra en el archivo `Tasks Calendar.md`, está la llamada a la aplicación para que esta comience a funcionar. En esta misma llamada, es posible enviar ciertos parámetros de inicio. Los parámetros se deben agregar dentro de los corchetes de la llamada (`{ tasks, view: "month" }`):
+
+```javascript
+// Comentario: Llamada a la aplicación
+await dv.view("Tasks Calendar/src/index", { tasks, view: "month" })
+```
+
+Allí es necesario que especifiques las tareas con las cuales la aplicación debe trabajar.
 
 Para ello hay dos opciones:
 
 1. **Opción 1**: Que el usuario se encargue de buscar y enviar por parámetro las tareas.
-2. **Opción 2**: Que el usuario envíe por parámetro un arreglo con tags para ubicar las notas y sus tareas.
+2. **Opción 2**: Que el usuario envíe por parámetro un arreglo de tags para ubicar las notas que contienen las tareas.
 
 ### Opción 1: Consultas personalizadas
 
@@ -69,9 +76,9 @@ await dv.view("Tasks Calendar/src/index", { tasks, view: "month" })
 
 La segunda opción consiste en pasar como parámetro un arreglo que contenga uno o varios tags. Estos tags se utilizan para identificar las notas que contienen las tareas que se desean rastrear.
 
-Esta opción es la más recomendada si el usuario no quiere lidiar con aprender a utilizar las consultas personalizadas de *DataviewJS*.
+Esta opción es la más recomendada si el usuario no quiere lidiar con las consultas personalizadas de *DataviewJS*.
 
-Para usar esta opción, primero agrega un tag en las notas que contienen las tareas. Por ejemplo, en una nota llamada `tareas del hogar.md`, puedes agregar el tag `tareas-del-hogar` (el nombre del tag es arbitrario):
+Para seguir esta opción, primero debe agregar un tag en las notas que contienen las tareas. Por ejemplo, en una nota llamada `tareas del hogar.md`, puedes agregar el tag `tareas-del-hogar` (el nombre del tag es arbitrario):
 
 ```
 ---
@@ -82,7 +89,7 @@ tags:
 - [ ] Esto es una tarea 📅 2025-02-06
 ```
 
-Luego, en la llamada a la aplicación, simplemente pasa el arreglo de tags como parámetro:
+Luego, en la llamada a la aplicación, simplemente se pasa el arreglo de tags como parámetro:
 
 ```javascript
 await dv.view("Tasks Calendar/src/index", { tags: [ 'tareas-del-hogar', 'otro-tag' ], view: "month" })
@@ -90,7 +97,7 @@ await dv.view("Tasks Calendar/src/index", { tags: [ 'tareas-del-hogar', 'otro-ta
 
 De esta forma la aplicación podrá rastrear las notas que contengan los tags especificados.
 
-Para una mejor legibilidad, te recomiendo declarar la variable de tags por separado:
+Para una mejor legibilidad, te recomiendo declarar el arreglo de tags por separado:
 
 ```javascript
 const tags = [ 'tareas-del-hogar', 'otro-tag' ]
