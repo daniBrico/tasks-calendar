@@ -5,5 +5,7 @@ cssclasses:
 ---
 
 ```dataviewjs
-await dv.view("Tasks Calendar/src/index", { view: "month", options: "style1" })
+const tags = ['#tareas-generales']
+
+await dv.view("Tasks Calendar/src/index", { tags, view: "month" })
 ```

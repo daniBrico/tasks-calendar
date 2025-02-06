@@ -10,19 +10,20 @@ const { initializeApp } = require(appPath)
 // Functions
 const main = function () {
   console.log('Comienza --------------------')
-  reloadImportsCache(`${basePath}\\Calendario`)
-  const { view, options } = input
-  let tasks = input.tasks
+  reloadImportsCache(path.join(basePath, 'Tasks Calendar'))
+  const options = 'style1'
+  const { view } = input
+  let { tasks, tags } = input
 
-  if (!tasks)
-    tasks = dv
-      .pages()
-      .file.where(
-        (f) =>
-          f.frontmatter.estado === `regular` ||
-          f.tags.includes(`#tareas-generales`) ||
-          f.frontmatter.estado === `cursando`
-      ).tasks
+  if (!tasks) {
+    if (tags) {
+      tasks = dv
+        .pages()
+        .where((page) =>
+          tags.some((tag) => page.file.tags && page.file.tags.includes(tag))
+        ).file.tasks
+    }
+  }
 
   initializeApp({ tasks, view, options, dv })
 }
